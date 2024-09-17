@@ -1,5 +1,6 @@
 module.exports = {
     images: {
-      domains: ['assets.aceternity.com'], // Add the domain here
+      domains: ['assets.aceternity.com'],
+      domains: ['localhost'], // Add the domain here
     },
   }

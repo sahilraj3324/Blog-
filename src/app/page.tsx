@@ -1,11 +1,16 @@
 import Image from "next/image";
 import Homepage from "./home/Homepage";
-import { SidebarDemo } from "./edit/NewBlog";
+import { Dashboard } from "./edit/NewBlog";
+import { Update } from "./edit/Update";
+
 
 export default function Home() {
   return (
     <div>
-      <Homepage/>
+      {/* <Homepage/>
+      <Dashboard /> */}
+      <Update />
+      
       
     </div>
   );
