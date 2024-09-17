@@ -33,7 +33,19 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 export function Update() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null); // Allow string or null
+  const [error, setError] = useState<string | null>(null);
+
+  const handleDelete = async (id) => {
+    try {
+      // Make DELETE request to the backend
+      await axios.delete(`http://localhost:5000/api/blogs/${id}`);
+      
+      // Update the blogs state to remove the deleted blog
+      setBlogs(blogs.filter((blog) => blog.id !== id));
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -66,9 +78,9 @@ export function Update() {
             <TabsContent value="all">
               <Card>
                 <CardHeader>
-                  <CardTitle>Products</CardTitle>
+                  <CardTitle>Blog Details</CardTitle>
                   <CardDescription>
-                    Manage your products and view their sales performance.
+                    Blogs details will be shown below 
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -76,10 +88,10 @@ export function Update() {
                     <TableHeader>
                       <TableRow>
                         <TableCell>Image</TableCell>
-                        <TableCell>Product</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Price</TableCell>
-                        <TableCell>Stock</TableCell>
+                        <TableCell>Title</TableCell>
+                        <TableCell>Id</TableCell>
+                        <TableCell>Views</TableCell>
+                        <TableCell>Reacts</TableCell>
                         <TableCell>Date</TableCell>
                         <TableCell>Actions</TableCell>
                       </TableRow>
@@ -98,7 +110,7 @@ export function Update() {
                           </TableCell>
                           <TableCell className="font-medium">{product.title}</TableCell>
                           <TableCell>
-                            <Badge variant="outline">{product.status}</Badge>
+                            <Badge variant="outline">{product._id}</Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             ${product.price || 'N/A'}
@@ -107,7 +119,7 @@ export function Update() {
                             {product.stock || 'N/A'}
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            {product.date || 'N/A'}
+                            {product.createdAt || "N/A"}
                           </TableCell>
                           <TableCell>
                             <DropdownMenu>
@@ -120,7 +132,7 @@ export function Update() {
                               <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                 <DropdownMenuItem>Edit</DropdownMenuItem>
-                                <DropdownMenuItem>Delete</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleDelete(product._id)}>Delete</DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>

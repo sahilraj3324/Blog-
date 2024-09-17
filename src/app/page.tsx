@@ -7,8 +7,8 @@ import { Update } from "./edit/Update";
 export default function Home() {
   return (
     <div>
-      {/* <Homepage/>
-      <Dashboard /> */}
+      <Homepage/>
+      <Dashboard />
       <Update />
       
       
