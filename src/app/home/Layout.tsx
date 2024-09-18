@@ -23,7 +23,7 @@ const Layout = () => {
     
     <BentoGrid className="max-w-4xl mx-auto mt-5">
     {blogs.map((items : any, i : number) => (
-      // <Link href={`/blog/${items._id}`} key={items._id}> {/* Make the card clickable */}
+      <Link href={`/blog/${items._id}`} > {/* Make the card clickable */}
         <BentoGridItem
           title={items.title}
           description={items.description}
@@ -35,7 +35,7 @@ const Layout = () => {
           }
           className={i === 3 || i === 6 ? "md:col-span-2" : ""}
         />
-      // </Link>
+       </Link>
     ))}
   </BentoGrid>
  
