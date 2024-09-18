@@ -35,13 +35,13 @@ export function Update() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id : any) => {
     try {
       // Make DELETE request to the backend
       await axios.delete(`http://localhost:5000/api/blogs/${id}`);
       
       // Update the blogs state to remove the deleted blog
-      setBlogs(blogs.filter((blog) => blog.id !== id));
+      setBlogs(blogs.filter((blog : any) => blog.id !== id));
     } catch (error) {
       console.error('Error deleting blog:', error);
     }
@@ -97,7 +97,7 @@ export function Update() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {blogs.map((product) => (
+                      {blogs.map((product : any) => (
                         <TableRow key={product.id}>
                           <TableCell className="hidden sm:table-cell">
                             <Image

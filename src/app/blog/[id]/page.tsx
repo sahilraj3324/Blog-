@@ -20,7 +20,7 @@ const BlogDetails = () => {
           console.log("API Response:", response.data); // Log the API response
           setBlog(response.data);
           setLoading(false);
-        } catch (err) {
+        } catch (err : any) {
           console.error("Error fetching blog details:", err); // Log the error
           setError(err.message); // Adjust error handling
           setLoading(false);
