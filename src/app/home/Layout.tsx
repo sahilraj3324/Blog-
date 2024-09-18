@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from "next/link";
 import { BentoGrid, BentoGridItem } from "../../components/ui/bento-grid";
+import Image from 'next/image';
 
 const Layout = () => {
   const [blogs, setBlogs] = useState([]);
@@ -28,9 +29,12 @@ const Layout = () => {
           title={items.title}
           description={items.description}
           header={
-            <img
+            <Image 
               className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"
               src={`http://localhost:5000${items.image}`}
+              alt = "description"
+              width={500}
+              height={300}
             />
           }
           className={i === 3 || i === 6 ? "md:col-span-2" : ""}

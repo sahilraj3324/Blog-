@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation"; // Correct import for client components
 import axios from "axios";
+import Image from "next/image";
 
 const BlogDetails = () => {
   const { id } = useParams(); // Extract 'id' from the dynamic route
@@ -52,7 +53,7 @@ const BlogDetails = () => {
           </a>
         </div>
 
-        <img src={`http://localhost:5000${blog.image}`} alt={blog.title} className="w-full object-cover lg:rounded" />
+        <Image height={500} width={300} src={`http://localhost:5000${blog.image}`} alt={blog.title} className="w-full object-cover lg:rounded" />
        </div>
        <div className="flex flex-col lg:flex-row lg:space-x-12">
 
