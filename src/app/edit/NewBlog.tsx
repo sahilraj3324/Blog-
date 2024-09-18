@@ -1,43 +1,20 @@
 "use client";
+import { useState } from 'react';
 import Link from "next/link";
-import { useState } from "react";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import Create from "./Create";
+import { Update } from "./Update";
 
 export function Dashboard() {
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
+  const [activeComponent, setActiveComponent] = useState('create'); // Default is 'create'
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-
-    if (image) {
-      formData.append("image", image);
-    }
-
-    try {
-      await axios.post("http://localhost:5000/api/blogs", formData);
-      alert("Blog created successfully");
-      setTitle("");
-      setDescription("");
-      setImage(null);
-    } catch (error) {
-      console.error(error);
-      alert("Error creating blog");
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case 'create':
+        return <Create />;
+      case 'update':
+        return <Update />;
+      default:
+        return <div>Select an option from the menu</div>;
     }
   };
 
@@ -48,74 +25,26 @@ export function Dashboard() {
           <h1 className="text-3xl font-semibold">Settings</h1>
         </div>
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+          {/* Navigation Section */}
           <nav className="grid gap-4 text-sm text-muted-foreground">
-            <Link href="#" className="font-semibold text-primary">
-              General
-            </Link>
-            <Link href="#">Security</Link>
-            <Link href="#">Integrations</Link>
-            <Link href="#">Support</Link>
-            <Link href="#">Organizations</Link>
-            <Link href="#">Advanced</Link>
+            {/* When clicked, the state changes to 'create' */}
+            <button onClick={() => setActiveComponent('create')} className="font-semibold text-primary">
+              Create
+            </button>
+            <button onClick={() => setActiveComponent('update')} className="font-semibold">
+              Delete
+            </button>
+            <button onClick={() => setActiveComponent('delete')} className="font-semibold">
+              Update
+            </button>
+            <button onClick={() => setActiveComponent('details')} className="font-semibold">
+              Details
+            </button>
           </nav>
+
+          {/* Main content that changes based on the navigation click */}
           <div className="grid gap-6">
-            <form onSubmit={handleSubmit}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Provide Title</CardTitle>
-                  <CardDescription>
-                    Used to identify your store in the marketplace.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                    placeholder="Write your title"
-                  />
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Provide Image</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <input
-                    type="file"
-                    onChange={(e) => {
-                      if (e.target.files && e.target.files.length > 0) {
-                        setImage(e.target.files[0]);
-                      }
-                    }}
-                  />
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Description</CardTitle>
-                  <CardDescription>
-                    Describe the content you are adding.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <textarea
-                    className="w-full h-64 p-2 border border-gray-400 rounded resize overflow-auto"
-                    style={{ minHeight: "150px", maxHeight: "600px" }}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    required
-                    placeholder="Describe here"
-                  />
-                </CardContent>
-              </Card>
-              <CardFooter>
-                <Button type="submit" className="bg-primary text-white">
-                  Submit
-                </Button>
-              </CardFooter>
-            </form>
+            {renderComponent()} {/* This will dynamically render the selected component */}
           </div>
         </div>
       </main>

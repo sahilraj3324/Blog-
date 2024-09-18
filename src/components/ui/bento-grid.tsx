@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Button } from "./button";
 
 export const BentoGrid = ({
   className,
@@ -25,12 +26,14 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
+  Link,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
+  Link?: string | React.ReactNode;
 }) => {
   return (
     <div
@@ -47,6 +50,9 @@ export const BentoGridItem = ({
         </div>
         <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300">
           {description}
+        </div>
+        <div className="font-sans font-bold underline-offset-4 hover:underline mb-2 mt-2">
+        {Link}
         </div>
       </div>
     </div>

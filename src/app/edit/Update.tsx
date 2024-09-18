@@ -110,10 +110,10 @@ export function Update() {
                           </TableCell>
                           <TableCell className="font-medium">{product.title}</TableCell>
                           <TableCell>
-                            <Badge variant="outline">{product._id}</Badge>
+                            <Badge variant="outline">{product.id}</Badge>
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
-                            ${product.price || 'N/A'}
+                            {product.price || 'N/A'}
                           </TableCell>
                           <TableCell className="hidden md:table-cell">
                             {product.stock || 'N/A'}
